@@ -13,7 +13,7 @@ let rl = readline.createInterface(
 )
 
 rl.question("What DSA you want to practice ? ", async function (ans) {
-    await pattern532LC(ans);
+    await pattern532GFG(ans);
     rl.close();
 })
 
@@ -23,7 +23,7 @@ async function pattern532GFG(dsaTopic) {
         headless: false,
         defaultViewport: null,
         args: ["--start-maximized"],
-        slowMo: 75
+        slowMo: 100
     });
 
     let pagesArr = await browser.pages();
@@ -53,7 +53,7 @@ async function pattern532GFG(dsaTopic) {
     let easyQ = await pageGFG.evaluate(function () {
         let easyQ = {};
         let problemName = document.querySelectorAll(".panel.problem-block div>span");
-        let problemLink = document.querySelectorAll(".panel.problem-block a");
+        let problemLink = document.querySelectorAll('[style="position: absolute;top: 0;left: 0;height: 100%;width: 100%;z-index:1;pointer:cursor;"]');
 
         if (problemName.length > 5) {
 
@@ -78,7 +78,7 @@ async function pattern532GFG(dsaTopic) {
     await pageGFG.click("[value='0']", { delay: 2000 })
 
     await Promise.all([
-        pageGFG.waitForNavigation(),
+        // pageGFG.waitForNavigation(),
         pageGFG.click("[value='1']", { delay: 2000 })
     ])
 
@@ -87,13 +87,14 @@ async function pattern532GFG(dsaTopic) {
     let mediumQ = await pageGFG.evaluate(function () {
         let mediumQ = {};
         let problemName = document.querySelectorAll(".panel.problem-block div>span");
-        let problemLink = document.querySelectorAll(".panel.problem-block a");
+        let problemLink = document.querySelectorAll('[style="position: absolute;top: 0;left: 0;height: 100%;width: 100%;z-index:1;pointer:cursor;"]');
 
         if (problemName.length > 3) {
 
             for (let i = 0; i < 3; i++) {
 
                 mediumQ[problemName[i].innerText] = problemLink[i].getAttribute("href");
+                console.log(problemLink[i].getAttribute("href"));
             }
         }
         else {
@@ -121,7 +122,7 @@ async function pattern532GFG(dsaTopic) {
     let hardQ = await pageGFG.evaluate(function () {
         let hardQ = {};
         let problemName = document.querySelectorAll(".panel.problem-block div>span");
-        let problemLink = document.querySelectorAll(".panel.problem-block a");
+        let problemLink = document.querySelectorAll('[style="position: absolute;top: 0;left: 0;height: 100%;width: 100%;z-index:1;pointer:cursor;"]');
 
         if (problemName.length > 2) {
 
@@ -150,7 +151,7 @@ async function pattern532GFG(dsaTopic) {
         if (err) {
             console.log(err);
         }
-        browser.close();
+        // browser.close();
     })
 
 }
