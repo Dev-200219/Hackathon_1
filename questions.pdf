@@ -4,107 +4,107 @@
 <</Type /Page
 /Parent 1 0 R
 /Resources 2 0 R
-/MediaBox [0 0 841.8899999999999864 595.2799999999999727]
+/MediaBox [0 0 1190.5499999999999545 841.8899999999999864]
 /Contents 4 0 R
 >>
 endobj
 4 0 obj
 <<
-/Length 2571
+/Length 2937
 >>
 stream
 0.5670000000000001 w
 0 G
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 566.933543307086552 Td
+28.3464566929133888 813.5435433070865656 Td
 (Easy Questions: ) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 538.5870866141732449 Td
+28.3464566929133888 785.1970866141732586 Td
 (Geek-onacci Number : https://practice.geeksforgeeks.org/problems/geek-onacci-number/0/?difficulty[]=0&page=1&category[]=Recursion&query=difficulty[]0page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 510.2406299212598242 Td
-(Josephus problem : https://practice.geeksforgeeks.org/explore/?category[]=Recursion) Tj
+28.3464566929133888 756.8506299212598378 Td
+(Josephus problem : https://practice.geeksforgeeks.org/problems/josephus-problem/1/?difficulty[]=0&page=1&category[]=Recursion&query=difficulty[]0page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 481.8941732283464034 Td
-(Diagonal Sum In Binary Tree : https://practice.geeksforgeeks.org/explore/?company[]=) Tj
+28.3464566929133888 728.5041732283464171 Td
+(Diagonal Sum In Binary Tree : https://practice.geeksforgeeks.org/problems/diagonal-sum-in-binary-tree/1/?difficulty[]=0&page=1&category[]=Recursion&query=difficulty[]0page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 453.5477165354330396 Td
-(Lucky Numbers : https://practice.geeksforgeeks.org/problems/josephus-problem/1/?difficulty[]=0&page=1&category[]=Recursion&query=difficulty[]0page1category[]Recursion) Tj
+28.3464566929133888 700.15771653543311 Td
+(Lucky Numbers : https://practice.geeksforgeeks.org/problems/lucky-numbers2911/1/?difficulty[]=0&page=1&category[]=Recursion&query=difficulty[]0page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 425.2012598425196757 Td
-(Sort a stack : https://practice.geeksforgeeks.org/explore/?category[]=Bit Magic) Tj
+28.3464566929133888 671.8112598425196893 Td
+(Sort a stack : https://practice.geeksforgeeks.org/problems/sort-a-stack/1/?difficulty[]=0&page=1&category[]=Recursion&query=difficulty[]0page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 396.8548031496062549 Td
+28.3464566929133888 615.1183464566928478 Td
 (Medium Questions: ) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 368.5083464566928342 Td
+28.3464566929133888 586.7718897637794271 Td
 (Generate Parentheses : https://practice.geeksforgeeks.org/problems/generate-all-possible-parentheses/1/?difficulty[]=1&page=1&category[]=Recursion&query=difficulty[]1page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 340.1618897637794703 Td
-(Gray Code : https://practice.geeksforgeeks.org/explore/?category[]=Backtracking) Tj
+28.3464566929133888 558.42543307086612 Td
+(Gray Code : https://practice.geeksforgeeks.org/problems/gray-code-1611215248/1/?difficulty[]=1&page=1&category[]=Recursion&query=difficulty[]1page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 311.8154330708661064 Td
-(Add two numbers represented by Linked List : https://practice.geeksforgeeks.org/explore/?category[]=Recursion) Tj
+28.3464566929133888 530.0789763779526993 Td
+(Add two numbers represented by Linked List : https://practice.geeksforgeeks.org/problems/add-two-numbers-represented-by-linked-list/1/?difficulty[]=1&page=1&category[]=Recursion&query=difficulty[]1page1category[]Recursion) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 113.3902362204723886 Td
+28.3464566929133888 274.9608661417322537 Td
 (Hard Questions: ) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 85.0437795275589679 Td
+28.3464566929133888 246.614409448818833 Td
 (Find all possible palindromic partitions of a String : https://practice.geeksforgeeks.org/problems/find-all-possible-palindromic-partitions-of-a-string/1/?difficulty[]=2&category[]=Recursion&page=1&query=difficulty[]2category[]Recursionpage1) Tj
 ET
 BT
-/F1 16 Tf
-18.3999999999999986 TL
+/F1 10 Tf
+11.5 TL
 0 g
-28.3464566929133888 56.6973228346455471 Td
-(Next Happy Number : https://practice.geeksforgeeks.org/explore/?category[]=Backtracking) Tj
+28.3464566929133888 218.2679527559054122 Td
+(Next Happy Number : https://practice.geeksforgeeks.org/problems/next-happy-number4538/1/?difficulty[]=2&category[]=Recursion&page=1&query=difficulty[]2category[]Recursionpage1) Tj
 ET
 endstream
 endobj
@@ -278,7 +278,7 @@ endobj
 19 0 obj
 <<
 /Producer (jsPDF 2.3.1)
-/CreationDate (D:20210623020106+05'30')
+/CreationDate (D:20210623025410+05'30')
 >>
 endobj
 20 0 obj
@@ -292,33 +292,33 @@ endobj
 xref
 0 21
 0000000000 65535 f 
-0000002775 00000 n 
-0000004592 00000 n 
+0000003142 00000 n 
+0000004959 00000 n 
 0000000015 00000 n 
-0000000152 00000 n 
-0000002832 00000 n 
-0000002957 00000 n 
-0000003087 00000 n 
-0000003220 00000 n 
-0000003357 00000 n 
-0000003480 00000 n 
-0000003609 00000 n 
-0000003741 00000 n 
-0000003877 00000 n 
-0000004005 00000 n 
-0000004132 00000 n 
-0000004261 00000 n 
-0000004394 00000 n 
-0000004496 00000 n 
-0000004840 00000 n 
-0000004926 00000 n 
+0000000153 00000 n 
+0000003199 00000 n 
+0000003324 00000 n 
+0000003454 00000 n 
+0000003587 00000 n 
+0000003724 00000 n 
+0000003847 00000 n 
+0000003976 00000 n 
+0000004108 00000 n 
+0000004244 00000 n 
+0000004372 00000 n 
+0000004499 00000 n 
+0000004628 00000 n 
+0000004761 00000 n 
+0000004863 00000 n 
+0000005207 00000 n 
+0000005293 00000 n 
 trailer
 <<
 /Size 21
 /Root 20 0 R
 /Info 19 0 R
-/ID [ <3A56012F6AB9CF57460E5077BD92AEB4> <3A56012F6AB9CF57460E5077BD92AEB4> ]
+/ID [ <5058A371D87C711B36D3BE55C61F41B0> <5058A371D87C711B36D3BE55C61F41B0> ]
 >>
 startxref
-5030
+5397
 %%EOF

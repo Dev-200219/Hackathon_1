@@ -6,9 +6,11 @@ console.log(obj);
 var doc= new jsPDF({
     orientation: "landscape",
     unit: "mm",
+    format:"a3"
   });
 
 let i=10;
+doc.setFontSize(10)
 
 for(let key in obj)
 {
@@ -26,18 +28,8 @@ for(let key in obj)
         j=j+10;
         l=l+50;
     }
-    i+=j-10;
+    i+=j;
 }
-
-    // doc.text("Medium Questions: ",0,i)
-
 
     
 doc.save("questions.pdf")
-
-
-// Default export is a4 paper, portrait, using millimeters for units
-// const doc = new jsPDF();
-
-// doc.text("Hello world!", 10, 10);
-// doc.save("a4.pdf");
