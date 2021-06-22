@@ -2,6 +2,19 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 let questions = {}
 
+const readline=require("readline");
+
+let rl=readline.createInterface(
+    process.stdin,
+    process.stdout
+
+)
+
+rl.question("What DSA you want to practice ? ",async function(ans){
+   await pattern532(ans);
+    rl.close();
+})
+
 
 async function pattern532(dsaTopic) {
     const browser = await puppeteer.launch({
@@ -12,26 +25,18 @@ async function pattern532(dsaTopic) {
     });
     const page = await browser.newPage();
     await page.goto('https://practice.geeksforgeeks.org/explore/?page=1');
-    await page.waitForSelector("div[href='#collapse4'] h4")
-    // await page.click(".clearFilters")
+    await page.waitForSelector("div[href='#collapse4'] h4");
 
     await page.evaluate(function () {
         document.querySelector("div[href='#collapse4'] h4").click();
         document.querySelector("#moreCategories").click();
     })
 
-    // await page.click("#moreCategories");
     await page.waitForSelector("#searchCategories");
     await page.type("#searchCategories", dsaTopic)
 
     await page.click('[style="font-size: 12px; padding: 10px; display: block;"]',{delay:2000})
     await page.click("#selectCategoryModal",{delay:500})
-
-    // await page.click(".modal-body button.close", { delay: 2000 })
-    // await page.click("label[style='display: block;']", { delay: 1000 })
-    // await page.click("label[style='display: block;']")
-    // await page.click("label[style='display: block;']")  
-
 
     await page.click("div[href='#collapse1'] h4", { delay: 2000 });
     await Promise.all([
@@ -114,5 +119,3 @@ async function pattern532(dsaTopic) {
     })
 
 }
-
-pattern532("Graph");
