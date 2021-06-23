@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { page } = require('pdfkit');
 const puppeteer = require('puppeteer');
 let questions = {}
 
@@ -27,7 +28,16 @@ async function companyGFG(companyName) {
     await pageGFG.click("#moreCompanies", { delay: 2000 });
     await pageGFG.waitForSelector("#searchCompanies");
     await pageGFG.type("#searchCompanies", companyName)
-    await pageGFG.click('[style="font-size: 12px; padding: 10px; display: block;"]', { delay: 2000 })
+    await pageGFG.$('[style="font-size: 12px; padding: 10px; display: block;"]')
+    .then(async function(data){
+        if(data!=null)
+        await pageGFG.click('[style="font-size: 12px; padding: 10px; display: block;"]', { delay: 2000 })
+        else
+        {
+            console.log(`${companyName} questions not availabe`);
+            await browser.close();
+        }
+    })
     await pageGFG.click("#selectCompanyModal", { delay: 500 })
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     await pageGFG.click("div[href='#collapse1'] h4", { delay: 2000 });
