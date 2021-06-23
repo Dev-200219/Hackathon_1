@@ -1,9 +1,9 @@
 const fs = require('fs');
-const { page } = require('pdfkit');
 const puppeteer = require('puppeteer');
 let questions = {}
 let mainPage;
 let mainBrowser;
+let createPDF=require("./convertJSON2PDF")
 
 const readline = require("readline");
 
@@ -125,12 +125,7 @@ async function pattern532GFG(dsaTopic, numQues, difficulty) {
 
     }
     
-    let fileName = dsaTopic + "GFGQuestions.json";
-    fs.writeFile(fileName, JSON.stringify(questions), function (err) {
-        if (err) {
-            console.log(err);
-        }
-    })
+    createPDF(JSON.stringify(questions),dsaTopic,"GFG");
 
 }
 
@@ -156,13 +151,9 @@ async function pattern532LC(dsaTopic,numQues, difficulty) {
         questions["Hard Questions: "] = await getLCQuestions(pageLC, 2, numQues);
     }
 
-    let fileName = dsaTopic + "LeetCode Questions.json";
-    fs.writeFile(fileName, JSON.stringify(questions), function (err) {
-        if (err) {
-            console.log(err);
-        }
+        createPDF(JSON.stringify(questions),dsaTopic,"LeetCode");
         mainBrowser.close();
-    })
+
 }
 
 async function getLCQuestions(pageLC, difficulty, numQues) {
@@ -196,7 +187,7 @@ async function getLCQuestions(pageLC, difficulty, numQues) {
         }
         else {
             for (let i = 2; i < allTrs.length; i++) {
-                let allATags = allTrs.querySelectorAll("td a");
+                let allATags = allTrs[i].querySelectorAll("td a");
                 let problemName = allATags[0].innerText;
                 let problemLink = "https://leetcode.com" + allATags[0].getAttribute("href");
                 ques[problemName] = problemLink;

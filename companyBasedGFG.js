@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { page } = require('pdfkit');
+let createPDF=require("./convertJSON2PDF")
 const puppeteer = require('puppeteer');
 let questions = {}
 
@@ -67,13 +67,9 @@ async function companyGFG(companyName) {
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, 10)
 
-    let fileName = companyName + "Questions.json";
-    fs.writeFile(fileName, JSON.stringify(questions), function (err) {
-        if (err)
-            console.log(err);
-
+        createPDF(JSON.stringify(questions),companyName,"GFG");
         browser.close();
-    })
+
 
 
 }

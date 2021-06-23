@@ -1,9 +1,9 @@
 const fs = require('fs');
-const { page } = require('pdfkit');
 const puppeteer = require('puppeteer');
 let questions = {}
 let mainPage;
 let mainBrowser;
+let createPDF=require("./convertJSON2PDF")
 
 const readline = require("readline");
 
@@ -68,13 +68,7 @@ async function pattern532GFG(dsaTopic) {
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, 2)
 
-    let fileName = dsaTopic + "GFGQuestions.json";
-    fs.writeFile(fileName, JSON.stringify(questions), function (err) {
-        if (err) {
-            console.log(err);
-        }
-        // browser.close();
-    })
+    createPDF(JSON.stringify(questions),dsaTopic,"GFG");
 
 }
 
@@ -92,13 +86,8 @@ async function pattern532LC(dsaTopic) {
     questions["Medium Questions: "] = await getLCQuestions(pageLC, 1, 3);
     questions["Hard Questions: "] = await getLCQuestions(pageLC, 2, 2);
 
-    let fileName = dsaTopic + "LeetCode Questions.json";
-    fs.writeFile(fileName, JSON.stringify(questions), function (err) {
-        if (err) {
-            console.log(err);
-        }
-        mainBrowser.close();
-    })
+    createPDF(JSON.stringify(questions),dsaTopic,"LeetCode");
+    mainBrowser.close();
 }
 
 async function getLCQuestions(pageLC, difficulty, numQues) {
