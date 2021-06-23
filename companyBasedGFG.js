@@ -9,7 +9,7 @@ let rl = readline.createInterface(
     process.stdout
 )
 
-rl.question("Which Company are you preparing for ? ", async function (ans) {
+rl.question("Which Company are you preparing for?\n", async function (ans) {
     await companyGFG(ans);
     rl.close();
 })
@@ -28,6 +28,7 @@ async function companyGFG(companyName) {
     await pageGFG.click("#moreCompanies", { delay: 2000 });
     await pageGFG.waitForSelector("#searchCompanies");
     await pageGFG.type("#searchCompanies", companyName)
+    
     await pageGFG.$('[style="font-size: 12px; padding: 10px; display: block;"]')
     .then(async function(data){
         if(data!=null)
@@ -38,6 +39,7 @@ async function companyGFG(companyName) {
             await browser.close();
         }
     })
+    
     await pageGFG.click("#selectCompanyModal", { delay: 500 })
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     await pageGFG.click("div[href='#collapse1'] h4", { delay: 2000 });
