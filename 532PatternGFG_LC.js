@@ -12,7 +12,7 @@ let rl = readline.createInterface(
     process.stdout
 )
 
-rl.question("What DSA you want to practice?\n", async function (ans) {
+rl.question("Which DSA do you want to practice?\n", async function (ans) {
     await pattern532GFG(ans);
     await pattern532LC(ans);
     rl.close();

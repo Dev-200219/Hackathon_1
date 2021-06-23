@@ -11,7 +11,7 @@ let rl = readline.createInterface(
     process.stdout
 )
 
-rl.question("What DSA you want to practice ? \n", async function (ans1) {
+rl.question("Which DSA do you want to practice ? \n", async function (ans1) {
     rl.question("Number of Questions you want to practice\n",async function(ans2){
         rl.question("Enter your difficulty level:(Easy,Medium,Hard,All)\n",async function(ans3){
            
