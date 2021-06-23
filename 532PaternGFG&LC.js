@@ -2,6 +2,8 @@ const fs = require('fs');
 const { page } = require('pdfkit');
 const puppeteer = require('puppeteer');
 let questions = {}
+let mainPage;
+let mainBrowser;
 
 const readline = require("readline");
 
@@ -12,6 +14,7 @@ let rl = readline.createInterface(
 
 rl.question("What DSA you want to practice ? ", async function (ans) {
     await pattern532GFG(ans);
+    await pattern532LC(ans);
     rl.close();
 })
 
@@ -24,8 +27,11 @@ async function pattern532GFG(dsaTopic) {
     });
 
     let pagesArr = await browser.pages();
-
     const pageGFG = pagesArr[0];
+
+    mainBrowser=browser;
+    mainPage=pageGFG;
+    
     await pageGFG.goto('https://practice.geeksforgeeks.org/explore/?page=1');
     await pageGFG.waitForSelector("div[href='#collapse4'] h4");
 
@@ -67,23 +73,14 @@ async function pattern532GFG(dsaTopic) {
         if (err) {
             console.log(err);
         }
-        browser.close();
+        // browser.close();
     })
 
 }
 
 async function pattern532LC(dsaTopic) {
 
-    const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: null,
-        args: ["--start-maximized"],
-        slowMo: 100
-    });
-
-    let pagesArr = await browser.pages();
-
-    const pageLC = pagesArr[0];
+    const pageLC = mainPage;
     await pageLC.goto('https://leetcode.com/problemset/all/');
     await pageLC.click("#headlessui-popover-button-17", { delay: 1000 })
     await pageLC.click("[placeholder='Filter topics']", { delay: 1000 })
@@ -95,7 +92,13 @@ async function pattern532LC(dsaTopic) {
     questions["Medium Questions: "] = await getLCQuestions(pageLC, 1, 3);
     questions["Hard Questions: "] = await getLCQuestions(pageLC, 2, 2);
 
-    console.log(questions);
+    let fileName = dsaTopic + "LeetCode Questions.json";
+    fs.writeFile(fileName, JSON.stringify(questions), function (err) {
+        if (err) {
+            console.log(err);
+        }
+        mainBrowser.close();
+    })
 }
 
 async function getLCQuestions(pageLC, difficulty, numQues) {
