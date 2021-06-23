@@ -39,7 +39,7 @@ async function companyGFG(companyName) {
         else
         {
             console.log(`${companyName} questions not availabe`);
-            await browser.close();
+            process.exit();
         }
     })
     

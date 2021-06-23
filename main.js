@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const readline = require("readline");
 const fs = require("fs");
 const rl = readline.createInterface({
@@ -7,7 +6,7 @@ const rl = readline.createInterface({
     terminal: false
 })
 
-// console.log(fs.readFileSync("helpFile.txt")+"\n");
+console.log(fs.readFileSync("helpFile.txt")+"\n");
 
 
 rl.question("Input your choice: \n", function (ans) {
