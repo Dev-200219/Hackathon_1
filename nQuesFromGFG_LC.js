@@ -26,7 +26,7 @@ rl.question("What DSA you want to practice ? \n", async function (ans1) {
                 await pattern532GFG(ans1,ans2,1);
                 await pattern532LC(ans1,ans2,1);
             }
-            else if(ans3.toLowerCase()=="easy")
+            else if(ans3.toLowerCase()=="hard")
             {      
                 await pattern532GFG(ans1,ans2,2);
                 await pattern532LC(ans1,ans2,2);

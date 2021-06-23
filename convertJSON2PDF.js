@@ -1,40 +1,34 @@
 const fs = require("fs");
-const { default: jsPDF } = require("jspdf");
-const { options } = require("pdfkit");
-let data = fs.readFileSync("AdobeQuestions.json");
+const PDFdocument = require("pdfkit")
+let data = fs.readFileSync("StringGFGQuestions.json");
 let obj = JSON.parse(data);
 
-var doc = new jsPDF({
-    orientation: "landscape",
-    unit: "mm",
-    format: "a3"
-});
+var doc = new PDFdocument({ size: 'A4' });
+doc.pipe(fs.createWriteStream("./StringGFG.pdf"))
+
+doc.fontSize(25).font('Times-Bold').text(`String GFG Questions`,{
+    underline:true,
+    align:'center'
+}).moveDown(1.0)
+doc.lineGap(2)
 
 let i = 10;
 
 for (let key in obj) {
 
-    var j = 20;
-    // var l=i+20;
-
-    doc.setFontSize(20)
-    doc.text(key, 10, i,{
-        
-    })
+    doc.fontSize(15)
+    doc.font('Times-Bold').text(`${key}`)
 
     let nobj = obj[key];
 
     for (let k in nobj) {
-        doc.setFontSize(10)
-        doc.text(k + " : " + nobj[k], 10, j,{
-        
-        });
+        doc.font('Times-Roman').fontSize(10)
+        .text(`${k}`, {
+                link: nobj[k],
+                width: 500
+            })
         j = j + 10;
-        // l=l+50;
     }
-
-    doc.addPage()
+    doc.moveDown(1.0);
 }
-
-
-doc.save(`Adobe Questions.pdf`)
+doc.end()
