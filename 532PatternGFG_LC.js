@@ -51,7 +51,7 @@ async function pattern532GFG(dsaTopic) {
         pageGFG.click("[value='0']", { delay: 1000 })
     ])
     await pageGFG.waitForSelector(".panel.problem-block div>span")
-    questions["Easy Questions: "] = await getGFGQuestions(pageGFG, 5);  ;
+    questions["Easy Questions: "] = await getGFGQuestions(pageGFG, 5); 
 
     await pageGFG.click("[value='0']", { delay: 1000 })
     await Promise.all([
