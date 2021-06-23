@@ -23,16 +23,17 @@ async function pattern532GFG(dsaTopic) {
         headless: false,
         defaultViewport: null,
         args: ["--start-maximized"],
-        slowMo: 100
+        slowMo: 50
     });
 
     let pagesArr = await browser.pages();
     const pageGFG = pagesArr[0];
-
+    await pageGFG.setDefaultTimeout(60000)
     mainBrowser=browser;
     mainPage=pageGFG;
     
     await pageGFG.goto('https://practice.geeksforgeeks.org/explore/?page=1');
+    await pageGFG.reload()
     await pageGFG.waitForSelector("div[href='#collapse4'] h4");
 
     await pageGFG.evaluate(function () {
@@ -47,23 +48,23 @@ async function pattern532GFG(dsaTopic) {
     
     await Promise.all([
         pageGFG.waitForNavigation(),
-        pageGFG.click("[value='0']", { delay: 2000 })
+        pageGFG.click("[value='0']", { delay: 1000 })
     ])
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     questions["Easy Questions: "] = await getGFGQuestions(pageGFG, 5);  ;
 
-    await pageGFG.click("[value='0']", { delay: 2000 })
+    await pageGFG.click("[value='0']", { delay: 1000 })
     await Promise.all([
         pageGFG.waitForNavigation(),
-        pageGFG.click("[value='1']", { delay: 2000 })
+        pageGFG.click("[value='1']", { delay: 1000 })
     ])
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, 3)
 
-    await pageGFG.click("[value='1']", { delay: 2000 })
+    await pageGFG.click("[value='1']", { delay: 1000 })
     await Promise.all([
         pageGFG.waitForNavigation(),
-        pageGFG.click("[value='2']", { delay: 2000 })
+        pageGFG.click("[value='2']", { delay: 1000 })
     ])
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, 2)
@@ -121,7 +122,7 @@ async function getLCQuestions(pageLC, difficulty, numQues) {
         }
         else {
             for (let i = 2; i < allTrs.length; i++) {
-                let allATags = allTrs.querySelectorAll("td a");
+                let allATags = allTrs[i].querySelectorAll("td a");
                 let problemName = allATags[0].innerText;
                 let problemLink = "https://leetcode.com" + allATags[0].getAttribute("href");
                 ques[problemName] = problemLink;
@@ -156,4 +157,9 @@ async function getGFGQuestions(pageGFG, numQues) {
         return ques;
 
     }, numQues)
+}
+
+module.exports={
+    GFG:pattern532GFG,
+    LC:pattern532LC
 }

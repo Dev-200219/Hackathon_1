@@ -1,11 +1,10 @@
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 let questions = {}
+let createPDF=require("./convertJSON2PDF")
+const readline = require("readline");
 let mainPage;
 let mainBrowser;
-let createPDF=require("./convertJSON2PDF")
-
-const readline = require("readline");
 
 let rl = readline.createInterface(
     process.stdin,
@@ -18,23 +17,23 @@ rl.question("What DSA you want to practice ? \n", async function (ans1) {
            
             if(ans3.toLowerCase()=="easy")
             { 
-                await pattern532GFG(ans1,ans2,0);
-                await pattern532LC(ans1,ans2,0);
+                await questionsGFG(ans1,ans2,0);
+                await questionsLC(ans1,ans2,0);
             }
             else if(ans3.toLowerCase()=="medium")
             {     
-                await pattern532GFG(ans1,ans2,1);
-                await pattern532LC(ans1,ans2,1);
+                await questionsGFG(ans1,ans2,1);
+                await questionsLC(ans1,ans2,1);
             }
             else if(ans3.toLowerCase()=="hard")
             {      
-                await pattern532GFG(ans1,ans2,2);
-                await pattern532LC(ans1,ans2,2);
+                await questionsGFG(ans1,ans2,2);
+                await questionsLC(ans1,ans2,2);
             }
             else
             {
-                await pattern532GFG(ans1,ans2);
-                await pattern532LC(ans1,ans2);
+                await questionsGFG(ans1,ans2);
+                await questionsLC(ans1,ans2);
             }
 
             rl.close();
@@ -43,21 +42,23 @@ rl.question("What DSA you want to practice ? \n", async function (ans1) {
     })
 })
 
-async function pattern532GFG(dsaTopic, numQues, difficulty) {
+async function questionsGFG(dsaTopic, numQues, difficulty) {
     const browser = await puppeteer.launch({
         headless: false,
         defaultViewport: null,
         args: ["--start-maximized"],
-        slowMo: 100
+        slowMo: 50
     });
 
     let pagesArr = await browser.pages();
     const pageGFG = pagesArr[0];
-
+    await pageGFG.setDefaultTimeout(60000)
     mainBrowser=browser;
     mainPage=pageGFG;
     
     await pageGFG.goto('https://practice.geeksforgeeks.org/explore/?page=1');
+    await pageGFG.reload();
+    await pageGFG.waitForSelector(".panel.problem-block div>span",{visible:true})
     await pageGFG.waitForSelector("div[href='#collapse4'] h4");
 
     await pageGFG.evaluate(function () {
@@ -129,7 +130,7 @@ async function pattern532GFG(dsaTopic, numQues, difficulty) {
 
 }
 
-async function pattern532LC(dsaTopic,numQues, difficulty) {
+async function questionsLC(dsaTopic,numQues, difficulty) {
 
     const pageLC = mainPage;
     await pageLC.goto('https://leetcode.com/problemset/all/');
@@ -222,3 +223,5 @@ async function getGFGQuestions(pageGFG, numQues) {
 
     }, numQues)
 }
+
+module.exports;

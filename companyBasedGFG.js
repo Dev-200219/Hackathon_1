@@ -4,10 +4,11 @@ const puppeteer = require('puppeteer');
 let questions = {}
 
 const readline = require("readline");
-let rl = readline.createInterface(
-    process.stdin,
-    process.stdout
-)
+let rl = readline.createInterface({
+    input:process.stdin,
+    output:process.stdout,
+    terminal:false
+})
 
 rl.question("Which Company are you preparing for?\n", async function (ans) {
     await companyGFG(ans);
@@ -19,12 +20,14 @@ async function companyGFG(companyName) {
         headless: false,
         defaultViewport: null,
         args: ["--start-maximized"],
-        slowMo: 100
+        slowMo: 75
     });
 
     let pagesArr = await browser.pages();
     const pageGFG = pagesArr[0];
+    await pageGFG.setDefaultTimeout(60000)
     await pageGFG.goto('https://practice.geeksforgeeks.org/explore/?page=1');
+    await pageGFG.reload();
     await pageGFG.click("#moreCompanies", { delay: 2000 });
     await pageGFG.waitForSelector("#searchCompanies");
     await pageGFG.type("#searchCompanies", companyName)
@@ -42,30 +45,30 @@ async function companyGFG(companyName) {
     
     await pageGFG.click("#selectCompanyModal", { delay: 500 })
     await pageGFG.waitForSelector(".panel.problem-block div>span")
-    await pageGFG.click("div[href='#collapse1'] h4", { delay: 2000 });
+    await pageGFG.click("div[href='#collapse1'] h4", { delay: 1000 });
     
     await Promise.all([
         pageGFG.waitForNavigation(),
-        pageGFG.click("[value='0']", { delay: 2000 })
+        pageGFG.click("[value='0']", { delay: 1000 })
     ])
     await pageGFG.waitForSelector(".panel.problem-block div>span")
-    questions["Easy Questions: "] = await getGFGQuestions(pageGFG, 10);  ;
+    questions["Easy Questions: "] = await getGFGQuestions(pageGFG, 15); 
 
-    await pageGFG.click("[value='0']", { delay: 2000 })
+    await pageGFG.click("[value='0']", { delay: 1000 })
     await Promise.all([
         pageGFG.waitForNavigation(),
-        pageGFG.click("[value='1']", { delay: 2000 })
+        pageGFG.click("[value='1']", { delay: 1000 })
     ])
     await pageGFG.waitForSelector(".panel.problem-block div>span")
-    questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, 10)
+    questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, 15)
 
-    await pageGFG.click("[value='1']", { delay: 2000 })
+    await pageGFG.click("[value='1']", { delay: 1000 })
     await Promise.all([
         pageGFG.waitForNavigation(),
-        pageGFG.click("[value='2']", { delay: 2000 })
+        pageGFG.click("[value='2']", { delay: 1000 })
     ])
     await pageGFG.waitForSelector(".panel.problem-block div>span")
-    questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, 10)
+    questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, 15)
 
         createPDF(JSON.stringify(questions),companyName,"GFG");
         browser.close();
@@ -100,3 +103,5 @@ async function getGFGQuestions(pageGFG, numQues) {
 
     }, numQues)
 }
+
+module.exports;
