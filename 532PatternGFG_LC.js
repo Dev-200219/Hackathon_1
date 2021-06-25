@@ -37,8 +37,8 @@ async function pattern532GFG(dsaTopic) {
     await pageGFG.waitForSelector("div[href='#collapse4'] h4");
 
     await pageGFG.evaluate(function () {
-        document.querySelector("div[href='#collapse4'] h4").click();
-        document.querySelector("#moreCategories").click();
+    document.querySelector("div[href='#collapse4'] h4").click();
+    document.querySelector("#moreCategories").click();
     })
     await pageGFG.waitForSelector("#searchCategories");
     await pageGFG.type("#searchCategories", dsaTopic)
