@@ -12,35 +12,35 @@ let rl = readline.createInterface(
     process.stdout
 )
 
-rl.question("Which DSA do you want to practice ? \n", async function (ans1) {
-    rl.question("Number of Questions you want to practice\n",async function(ans2){
-        rl.question("Enter your difficulty level:(Easy,Medium,Hard,All)\n",async function(ans3){
-           
-            if(ans3.toLowerCase()=="easy")
-            { 
-                await questionsGFG(ans1,ans2,0);
-                await questionsLC(ans1,ans2,0);
-            }
-            else if(ans3.toLowerCase()=="medium")
-            {     
-                await questionsGFG(ans1,ans2,1);
-                await questionsLC(ans1,ans2,1);
-            }
-            else if(ans3.toLowerCase()=="hard")
-            {      
-                await questionsGFG(ans1,ans2,2);
-                await questionsLC(ans1,ans2,2);
-            }
-            else
-            {
-                await questionsGFG(ans1,ans2);
-                await questionsLC(ans1,ans2);
-            }
+rl.question("Which DSA do you want to practice ? \n", async function (topic) {
+    rl.question("Number of Questions you want to practice\n",async function(numQues){
+        rl.question("Enter your difficulty level:(Easy,Medium,Hard,All)\n",async function(difficulty){
+        
+        if(difficulty.toLowerCase()=="easy")
+        { 
+            await questionsGFG(topic,numQues,0);
+            await questionsLC(topic,numQues,0);
+        }
+        else if(difficulty.toLowerCase()=="medium")
+        {     
+            await questionsGFG(topic,numQues,1);
+            await questionsLC(topic,numQues,1);
+        }
+        else if(difficulty.toLowerCase()=="hard")
+        {      
+            await questionsGFG(topic,numQues,2);
+            await questionsLC(topic,numQues,2);
+        }
+        else
+        {
+            await questionsGFG(topic,numQues);
+            await questionsLC(topic,numQues);
+        }
 
-            rl.close();
-        })
-
+        rl.close();
     })
+
+})
 })
 
 async function questionsGFG(dsaTopic, numQues, difficulty) {
@@ -68,7 +68,18 @@ async function questionsGFG(dsaTopic, numQues, difficulty) {
     })
     await pageGFG.waitForSelector("#searchCategories");
     await pageGFG.type("#searchCategories", dsaTopic)
-    await pageGFG.click('[style="font-size: 12px; padding: 10px; display: block;"]', { delay: 2000 })
+    await pageGFG.$('[style="font-size: 12px; padding: 10px; display: block;"]')
+    .then(async function(topicAvailable){
+        
+        if(topicAvailable!=null)
+        await pageGFG.click('[style="font-size: 12px; padding: 10px; display: block;"]', { delay: 2000 })
+        else
+        {
+            console.log(`${dsaTopic} questions are not availabe on GFG`);
+            await questionsLC(dsaTopic,numQues,difficulty);
+            process.exit(0);
+        }
+    })
     await pageGFG.click("#selectCategoryModal", { delay: 500 })
     await pageGFG.click("div[href='#collapse1'] h4", { delay: 2000 });
 
@@ -83,14 +94,12 @@ async function questionsGFG(dsaTopic, numQues, difficulty) {
     else if(difficulty==2)
     {
         questions["Hard Questions: "] =  await getQuestionsGFG(pageGFG, numQues,2, false)
-
     }
     else
     {
         questions["Easy Questions: "] = await getQuestionsGFG(pageGFG, numQues, 0, true); 
         questions["Medium Questions: "] =  await getQuestionsGFG(pageGFG, numQues, 1, true)
         questions["Hard Questions: "] =  await getQuestionsGFG(pageGFG, numQues, 2, true)  
-
     }
     
     createPDF(JSON.stringify(questions),dsaTopic,"GFG");

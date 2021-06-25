@@ -42,7 +42,18 @@ async function pattern532GFG(dsaTopic) {
     })
     await pageGFG.waitForSelector("#searchCategories");
     await pageGFG.type("#searchCategories", dsaTopic)
-    await pageGFG.click('[style="font-size: 12px; padding: 10px; display: block;"]', { delay: 2000 })
+    await pageGFG.$('[style="font-size: 12px; padding: 10px; display: block;"]')
+    .then(async function(topicAvailable){
+        
+        if(topicAvailable!=null)
+        await pageGFG.click('[style="font-size: 12px; padding: 10px; display: block;"]', { delay: 2000 })
+        else
+        {
+            console.log(`${dsaTopic} questions are not availabe on GFG`);
+            await questionsLC(dsaTopic,numQues,difficulty);
+            process.exit(0);
+        }
+    })
     await pageGFG.click("#selectCategoryModal", { delay: 500 })
     await pageGFG.click("div[href='#collapse1'] h4", { delay: 2000 });
     
