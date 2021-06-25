@@ -1,7 +1,6 @@
 let createPDF=require("./convertJSON2PDF");
 let getQuestions= require("./getQuestionsFromGFG").getQues;
 const puppeteer = require('puppeteer');
-let questions = {}
 
 const readline = require("readline");
 let rl = readline.createInterface({
@@ -11,21 +10,24 @@ let rl = readline.createInterface({
 })
 
 rl.question("Which Company are you preparing for?\n", async function (companyName) {
-rl.question("Enter number of questions:",async function(numQues){
-    
-    await getCompanyQues(companyName,numQues);
-    rl.close(); 
-  })
+    rl.question("Enter number of questions:",async function(numQues){
+        
+        await getCompanyQues(companyName,numQues);
+        rl.close(); 
     })
+})
 
 async function getCompanyQues(companyName, numQues) {
+    
+    let questions = {}
+    
     const browser = await puppeteer.launch({
         headless: false,
         defaultViewport: null,
         args: ["--start-maximized"],
         slowMo: 75
     });
-
+    
     let allPages = await browser.pages();
     const pageGFG = allPages[0];
     await pageGFG.setDefaultTimeout(60000)
@@ -51,12 +53,12 @@ async function getCompanyQues(companyName, numQues) {
     await pageGFG.click("#selectCompanyModal", { delay: 500 })
     await pageGFG.waitForSelector(".panel.problem-block div>span")
     await pageGFG.click("div[href='#collapse1'] h4", { delay: 1000 });
-
-    /*Getting questions of each type of difficulty from getGFGQuestions*/ 
+    
+    /*Getting questions of each type of difficulty from getQuestionsFromGFG module*/ 
     questions["Easy Questions: "] = await getQuestions(pageGFG, numQues, 0, true); 
     questions["Medium Questions: "] =  await getQuestions(pageGFG, numQues, 1, true) 
     questions["Hard Questions: "] =  await getQuestions(pageGFG, numQues, 2, true)  
-
+    
     /*Creating PDF of all the questions*/
     createPDF(JSON.stringify(questions),companyName,"");
     browser.close();
