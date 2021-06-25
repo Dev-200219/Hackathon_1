@@ -9,11 +9,12 @@ async function getGFGQuestions(pageGFG, numQues, difficulty, check) {
             pageGFG.click("[value='0']", { delay: 1000 })
         ])
         p= new Promise(function(resolve,reject){
-            pageGFG.waitForSelector(".panel.problem-block div>span",{setTimeout:1000})
+            pageGFG.waitForSelector(".panel.problem-block div>span",{setTimeout:500})
             .then(function(){
                 resolve();
             })
             .catch(function(){
+                resolve();
                 return {"No Easy Questions Available":'\0'}
             })
         })
@@ -29,11 +30,12 @@ async function getGFGQuestions(pageGFG, numQues, difficulty, check) {
             pageGFG.click("[value='1']", { delay: 1000 })
         ])
         p= new Promise(function(resolve,reject){
-            pageGFG.waitForSelector(".panel.problem-block div>span",{setTimeout:1000})
+            pageGFG.waitForSelector(".panel.problem-block div>span",{setTimeout:500})
             .then(function(){
                 resolve();
             })
             .catch(function(){
+                resolve();
                 return {"No Medium Questions Available":'\0'}
             })
         })
@@ -48,7 +50,7 @@ async function getGFGQuestions(pageGFG, numQues, difficulty, check) {
             pageGFG.click("[value='2']", { delay: 1000 })
         ]) 
         p= new Promise(function(resolve,reject){
-            pageGFG.waitForSelector(".panel.problem-block div>span",{setTimeout:1000})
+            pageGFG.waitForSelector(".panel.problem-block div>span",{setTimeout:500})
             .then(function(){
                 resolve();  
             })

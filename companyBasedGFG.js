@@ -39,9 +39,9 @@ async function getCompanyQues(companyName, numQues) {
     
     /*Checking if the company's questions are even available or not, if not then print the corresponding statement and exit from process*/ 
     await pageGFG.$('[style="font-size: 12px; padding: 10px; display: block;"]')
-    .then(async function(data){
+    .then(async function(questionsAvailable){
         
-        if(data!=null)
+        if(questionsAvailable!=null)
         await pageGFG.click('[style="font-size: 12px; padding: 10px; display: block;"]', { delay: 2000 })
         else
         {
