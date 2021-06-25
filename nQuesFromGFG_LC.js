@@ -14,8 +14,8 @@ let rl = readline.createInterface(
 
 rl.question("Which DSA do you want to practice ? \n", async function (topic) {
 rl.question("Number of Questions you want to practice\n",async function(numQues){
-rl.question("Enter your difficulty level:(Easy,Medium,Hard,All)\n",async function(difficulty){
-    
+rl.question("Enter your difficulty level:(Easy,Medium,Hard,All)\n",async function(difficulty)
+{    
     if(difficulty.toLowerCase()=="easy")
     { 
         await questionsGFG(topic,numQues,0);
