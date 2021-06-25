@@ -9,12 +9,12 @@ const rl = readline.createInterface({
 console.log(fs.readFileSync("helpFile.txt")+"\n");
 
 
-rl.question("Input your choice: \n", function (ans) {
+rl.question("Input your choice: \n", function (choice) {
 
-    if (ans == 1) {
+    if (choice == 1) {
         require("./532PatternGFG_LC");
     }
-    else if (ans == 2) {
+    else if (choice == 2) {
         require("./nQuesFromGFG_LC");
     }
     else {

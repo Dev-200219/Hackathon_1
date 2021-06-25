@@ -73,56 +73,22 @@ async function questionsGFG(dsaTopic, numQues, difficulty) {
 
     if(difficulty==0)
     {
-        await Promise.all([
-            pageGFG.waitForNavigation(),
-            pageGFG.click("[value='0']", { delay: 2000 })
-        ])
-        await pageGFG.waitForSelector(".panel.problem-block div>span")
-        questions["Easy Questions: "] = await getGFGQuestions(pageGFG, numQues);  
+        questions["Easy Questions: "] = await getGFGQuestions(pageGFG, numQues,0, false);  
     }
     else if(difficulty==1)
     {
-        await Promise.all([
-            pageGFG.waitForNavigation(),
-            pageGFG.click("[value='1']", { delay: 2000 })
-        ])
-        await pageGFG.waitForSelector(".panel.problem-block div>span")
-        questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, numQues)
+        questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, numQues,1, false)
     }
     else if(difficulty==2)
     {
-        await Promise.all([
-            pageGFG.waitForNavigation(),
-            pageGFG.click("[value='2']", { delay: 2000 })
-        ])
-        await pageGFG.waitForSelector(".panel.problem-block div>span")
-        questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, numQues)
+        questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, numQues,2, false)
 
     }
     else
     {
-        await Promise.all([
-            pageGFG.waitForNavigation(),
-            pageGFG.click("[value='0']", { delay: 2000 })
-        ])
-        await pageGFG.waitForSelector(".panel.problem-block div>span")
-        questions["Easy Questions: "] = await getGFGQuestions(pageGFG, numQues); 
-
-        await pageGFG.click("[value='0']", { delay: 2000 })
-        await Promise.all([
-            pageGFG.waitForNavigation(),
-            pageGFG.click("[value='1']", { delay: 2000 })
-        ])
-        await pageGFG.waitForSelector(".panel.problem-block div>span")
-        questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, numQues)
-
-        await pageGFG.click("[value='1']", { delay: 2000 })
-        await Promise.all([
-            pageGFG.waitForNavigation(),
-            pageGFG.click("[value='2']", { delay: 2000 })
-        ])
-        await pageGFG.waitForSelector(".panel.problem-block div>span")
-        questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, numQues)  
+        questions["Easy Questions: "] = await getGFGQuestions(pageGFG, numQues, 0, true); 
+        questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, numQues, 1, true)
+        questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, numQues, 2, true)  
 
     }
     
@@ -198,30 +164,92 @@ async function getLCQuestions(pageLC, difficulty, numQues) {
         return ques;
     }, numQues)
 }
-async function getGFGQuestions(pageGFG, numQues) {
+
+async function getGFGQuestions(pageGFG, numQues, difficulty, check) {
+
+    let p;
+    
+    if(difficulty==0)
+    {
+        await Promise.all([
+            pageGFG.waitForNavigation(),
+            pageGFG.click("[value='0']", { delay: 1000 })
+        ])
+        p= new Promise(function(resolve,reject){
+            pageGFG.waitForSelector(".panel.problem-block div>span")
+            .then(function(){
+                resolve();
+            })
+            .catch(function(){
+                return {"No Easy Questions Available":'\0'}
+            })
+        })
+
+    }
+    else if(difficulty==1)
+    {
+        if(check==true)
+        await pageGFG.click("[value='0']", { delay: 1000 })
+        
+        await Promise.all([
+            pageGFG.waitForNavigation(),
+            pageGFG.click("[value='1']", { delay: 1000 })
+        ])
+        p= new Promise(function(resolve,reject){
+            pageGFG.waitForSelector(".panel.problem-block div>span")
+            .then(function(){
+                resolve();
+            })
+            .catch(function(){
+                return {"No Medium Questions Available":'\0'}
+            })
+        })
+    }
+    else if(difficulty==2)
+    {   
+        if(check==true)
+        await pageGFG.click("[value='1']", { delay: 1000 })
+        
+        await Promise.all([
+            pageGFG.waitForNavigation(),
+            pageGFG.click("[value='2']", { delay: 1000 })
+        ]) 
+        p= new Promise(function(resolve,reject){
+            pageGFG.waitForSelector(".panel.problem-block div>span")
+            .then(function(){
+                resolve();  
+            })
+            .catch(function(){
+                resolve();
+                return {"No Hard Questions Available":'\0'}
+            })
+        })
+
+    }
+
+    await p;
+    
     return await pageGFG.evaluate(function (numQues) {
         let ques = {};
         let problemName = document.querySelectorAll(".panel.problem-block div>span");
         let problemLink = document.querySelectorAll('[style="position: absolute;top: 0;left: 0;height: 100%;width: 100%;z-index:1;pointer:cursor;"]');
 
-        if (problemName.length > numQues) {
-
-            for (let i = 0; i < numQues; i++) {
-
-                ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
+            if (problemName.length > numQues) {
+    
+                for (let i = 0; i < numQues; i++) {
+                    ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
             }
-        }
-        else {
-            for (let i = 0; i < problemName.length; i++) {
-
-                ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
             }
-        }
+            else {
+                for (let i = 0; i < problemName.length; i++) {
+                ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
+                }
+            }
+            return ques;
+            }, numQues)
+        
 
-
-        return ques;
-
-    }, numQues)
 }
+
 
 module.exports;

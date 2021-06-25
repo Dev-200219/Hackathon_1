@@ -12,9 +12,9 @@ let rl = readline.createInterface(
     process.stdout
 )
 
-rl.question("Which DSA do you want to practice?\n", async function (ans) {
-    await pattern532GFG(ans);
-    await pattern532LC(ans);
+rl.question("Which DSA do you want to practice?\n", async function (topic) {
+    await pattern532GFG(topic);
+    await pattern532LC(topic);
     rl.close();
 })
 
@@ -23,12 +23,11 @@ async function pattern532GFG(dsaTopic) {
         headless: false,
         defaultViewport: null,
         args: ["--start-maximized"],
-        slowMo: 50
+        slowMo: 100
     });
 
     let pagesArr = await browser.pages();
     const pageGFG = pagesArr[0];
-    await pageGFG.setDefaultTimeout(60000)
     mainBrowser=browser;
     mainPage=pageGFG;
     
@@ -46,28 +45,9 @@ async function pattern532GFG(dsaTopic) {
     await pageGFG.click("#selectCategoryModal", { delay: 500 })
     await pageGFG.click("div[href='#collapse1'] h4", { delay: 2000 });
     
-    await Promise.all([
-        pageGFG.waitForNavigation(),
-        pageGFG.click("[value='0']", { delay: 1000 })
-    ])
-    await pageGFG.waitForSelector(".panel.problem-block div>span")
-    questions["Easy Questions: "] = await getGFGQuestions(pageGFG, 5); 
-
-    await pageGFG.click("[value='0']", { delay: 1000 })
-    await Promise.all([
-        pageGFG.waitForNavigation(),
-        pageGFG.click("[value='1']", { delay: 1000 })
-    ])
-    await pageGFG.waitForSelector(".panel.problem-block div>span")
-    questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, 3)
-
-    await pageGFG.click("[value='1']", { delay: 1000 })
-    await Promise.all([
-        pageGFG.waitForNavigation(),
-        pageGFG.click("[value='2']", { delay: 1000 })
-    ])
-    await pageGFG.waitForSelector(".panel.problem-block div>span")
-    questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, 2)
+    questions["Easy Questions: "] = await getGFGQuestions(pageGFG, 5, 0); 
+    questions["Medium Questions: "] =  await getGFGQuestions(pageGFG, 3, 1)
+    questions["Hard Questions: "] =  await getGFGQuestions(pageGFG, 2, 2)
 
     createPDF(JSON.stringify(questions),dsaTopic,"GFG");
 
@@ -133,33 +113,91 @@ async function getLCQuestions(pageLC, difficulty, numQues) {
     }, numQues)
 }
 
-async function getGFGQuestions(pageGFG, numQues) {
+async function getGFGQuestions(pageGFG, numQues, difficulty) {
+
+    let p;
+    
+    if(difficulty==0)
+    {
+        await Promise.all([
+            pageGFG.waitForNavigation(),
+            pageGFG.click("[value='0']", { delay: 1000 })
+        ])
+        p= new Promise(function(resolve,reject){
+            pageGFG.waitForSelector(".panel.problem-block div>span")
+            .then(function(){
+                resolve();
+            })
+            .catch(function(){
+                return {"No Easy Questions Available":'\0'}
+            })
+        })
+
+    }
+    else if(difficulty==1)
+    {
+        await pageGFG.click("[value='0']", { delay: 1000 })
+        await Promise.all([
+            pageGFG.waitForNavigation(),
+            pageGFG.click("[value='1']", { delay: 1000 })
+        ])
+        p= new Promise(function(resolve,reject){
+            pageGFG.waitForSelector(".panel.problem-block div>span")
+            .then(function(){
+                resolve();
+            })
+            .catch(function(){
+                return {"No Medium Questions Available":'\0'}
+            })
+        })
+    }
+    else
+    {
+        await pageGFG.click("[value='1']", { delay: 1000 })
+        await Promise.all([
+            pageGFG.waitForNavigation(),
+            pageGFG.click("[value='2']", { delay: 1000 })
+        ]) 
+        p= new Promise(function(resolve,reject){
+            pageGFG.waitForSelector(".panel.problem-block div>span")
+            .then(function(){
+                resolve();  
+            })
+            .catch(function(){
+                resolve();
+                return {"No Hard Questions Available":'\0'}
+            })
+        })
+
+    }
+
+    await p;
+    
     return await pageGFG.evaluate(function (numQues) {
         let ques = {};
         let problemName = document.querySelectorAll(".panel.problem-block div>span");
         let problemLink = document.querySelectorAll('[style="position: absolute;top: 0;left: 0;height: 100%;width: 100%;z-index:1;pointer:cursor;"]');
 
-        if (problemName.length > numQues) {
-
-            for (let i = 0; i < numQues; i++) {
-
-                ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
+            if (problemName.length > numQues) {
+    
+                for (let i = 0; i < numQues; i++) {
+                    ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
             }
-        }
-        else {
-            for (let i = 0; i < problemName.length; i++) {
-
-                ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
             }
-        }
+            else {
+                for (let i = 0; i < problemName.length; i++) {
+                ques[problemName[i].innerText] = problemLink[i].getAttribute("href");
+                }
+            }
+            return ques;
+            }, numQues)
+        
 
-
-        return ques;
-
-    }, numQues)
 }
 
 module.exports={
-    GFG:pattern532GFG,
-    LC:pattern532LC
+GFG:pattern532GFG,
+LC:pattern532LC
 }
+
+
