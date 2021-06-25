@@ -17,7 +17,9 @@ rl.question("Input your choice: \n", function (choice) {
     else if (choice == 2) {
         require("./nQuesFromGFG_LC");
     }
-    else {
+    else if(choice==3) {
         require("./companyBasedGFG")
     }
+    else
+    console.log("Invalid Choice!!!!");
 })
