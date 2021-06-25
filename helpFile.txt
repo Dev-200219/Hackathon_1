@@ -3,5 +3,4 @@
 --> If you want to practice a DS which you think is weak and needs some more practice, then choose 2 option and then select the topic, number of questions and difficulty level
 (according to you) and then you will get a PDF of such questions from GeeksForGeeks and LeetCode to solve. 
 
---> If you want to prepare for a particular company, then choose option 3 and then you will get a PDF of easy, medium and hard questions each (provided the company's 
-questions are available on GFG) which the company has asked previously to solve by yourself.
+--> If you want to prepare for a particular company, then choose option 3 and input the number of questions and then you will get a PDF of easy, medium and hard questions each (provided the company's questions are available on GFG) which the company has asked previously to solve by yourself.
