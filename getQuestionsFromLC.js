@@ -19,7 +19,7 @@ return await pageLC.evaluate(function (numQues) {
 let ques = {};
 let allTrs = document.querySelectorAll("tbody tr");
 
-if (allTrs.length >= Number(numQues+2)) 
+if (allTrs.length >= Number(numQues)+2) 
 {  
     for (let i = 2; i < Number(numQues)+2; i++) {
     let allATags = allTrs[i].querySelectorAll("td a");
